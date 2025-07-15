@@ -112,7 +112,7 @@ throw_probs_dict = {k: v for k, v in throw_probs_dict.items() if k <= 80}
 st.subheader("Задайте параметры")
 
 # Кубик
-default_probs = [0.05, 0.15, 0.35, 0.15, 0.25, 0.05]
+default_probs = [0.1, 0.15, 0.3, 0.1, 0.3, 0.05]
 face_probs = []
 
 cols = st.columns(6)
@@ -218,8 +218,5 @@ if run_button:
 
     st.success("Симуляция завершена!")
 
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.success("Симуляция завершена!")
 
     
