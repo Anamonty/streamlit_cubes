@@ -177,11 +177,6 @@ if run_button:
         cell_counter.update(all_positions)
 
     # В красивую таблицу
-    cell_data = pd.DataFrame.from_dict(cell_counter, orient='index', columns=['users_passed'])
-    cell_data.index.name = 'cell'
-    cell_data = cell_data.sort_index()
-    cell_data['percent_users'] = (cell_data['users_passed'] / n_users_total) * 100
-
     st.subheader("Распределение пользователей по клеткам")
 
     st.dataframe(cell_data)
@@ -199,17 +194,17 @@ if run_button:
     cell_data.index.name = 'cell'
     cell_data = cell_data.sort_index()
     cell_data['percent_users'] = (cell_data['users_passed'] / n_users_total) * 100
-    csv_buffer = io.StringIO()
-    cell_data.to_csv(csv_buffer, index=True, sep=';')
-    csv_text = csv_buffer.getvalue()
-    st.text_area("CSV для копирования в буфер обмена:", csv_text, height=200)
+    total_users = cell_data['users_passed'].sum()
+    st.write(f"Всего игр: {total_users}")
+    games_per_user = round(total_users/n_users_total,2)
+    st.write(f"Игр на пользователя: {games_per_user}")
 
     # ----------------------------
     # График посещений
     # ----------------------------
     
     fig = px.bar(
-        cell_data[cell_data.index <= 100].reset_index(),
+        cell_data[cell_data.index <= 200].reset_index(),
         x='cell',
         y='users_passed',
         labels={'cell': 'Клетка', 'users_passed': 'Количество пользователей'},
@@ -218,6 +213,10 @@ if run_button:
         color_continuous_scale="Viridis",  # цветовая шкала
         height=400
     )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.success("Симуляция завершена!")
 
     st.plotly_chart(fig, use_container_width=True)
 
