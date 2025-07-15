@@ -177,6 +177,10 @@ if run_button:
         cell_counter.update(all_positions)
 
     # В красивую таблицу
+    cell_data = pd.DataFrame.from_dict(cell_counter, orient='index', columns=['users_passed'])
+    cell_data.index.name = 'cell'
+    cell_data = cell_data.sort_index()
+    cell_data['percent_users'] = (cell_data['users_passed'] / n_users_total) * 100
     st.subheader("Распределение пользователей по клеткам")
 
     st.dataframe(cell_data)
@@ -190,10 +194,7 @@ if run_button:
         file_name="visited_cells.csv",
         mime="text/csv",
     )
-    cell_data = pd.DataFrame.from_dict(cell_counter, orient='index', columns=['users_passed'])
-    cell_data.index.name = 'cell'
-    cell_data = cell_data.sort_index()
-    cell_data['percent_users'] = (cell_data['users_passed'] / n_users_total) * 100
+   
     total_users = cell_data['users_passed'].sum()
     st.write(f"Всего игр: {total_users}")
     games_per_user = round(total_users/n_users_total,2)
