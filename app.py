@@ -10,7 +10,6 @@ st.set_page_config(page_title="Dice Path Simulator", layout="wide")
 st.title("Симуляция пути пользователей по клеткам")
 
 st.markdown("""
-Это симуляция, учитывающая весь путь пользователя по клеткам.  
 Можно задать вероятности граней «нечестного» кубика и общее количество пользователей.
 """)
 
@@ -18,8 +17,7 @@ st.markdown("""
 # Задаём вероятности бросков
 # -------------------------------
 
-# Твои реальные данные по количеству бросков и вероятностям
-# Можно зашить напрямую:
+# реальные данные по количеству бросков и вероятностям
 throw_probs_dict = {
     1:0.1018,
 2:0.0501999999999999,
@@ -141,8 +139,8 @@ throw_probs_dict = {
 118:0,
 119:0.0001,
 }
-# Оставим только до 20 бросков
-throw_probs_dict = {k: v for k, v in throw_probs_dict.items() if k <= 80}
+
+throw_probs_dict = {k: v for k, v in throw_probs_dict.items()}
 
 # -------------------------------
 # Интерфейс ввода
@@ -244,7 +242,7 @@ if run_button:
     # ----------------------------
     
     fig = px.bar(
-        cell_data[cell_data.index <= 100].reset_index(),
+        cell_data[cell_data.index <= 150].reset_index(),
         x='cell',
         y='users_passed',
         labels={'cell': 'Клетка', 'users_passed': 'Количество пользователей'},
