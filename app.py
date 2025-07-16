@@ -225,7 +225,7 @@ if run_button:
     # ----------------------------
     
     fig = px.bar(
-        cell_data[cell_data.index <= 200].reset_index(),
+        cell_data[cell_data.index <= 100].reset_index(),
         x='cell',
         y='users_passed',
         labels={'cell': 'Клетка', 'users_passed': 'Количество пользователей'},
