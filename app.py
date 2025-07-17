@@ -172,7 +172,7 @@ if abs(sum(face_probs) - 1.0) > 1e-6:
 n_users_total = st.number_input(
     "Введите общее количество пользователей",
     min_value=1,
-    value=2730000,
+    value=2813308,
     step=1000
 )
 
